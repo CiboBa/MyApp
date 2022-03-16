@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class AppJDBC {
 
     public static void main(String[] args) {
-        String url = "jdbc:sqlserver://BTN3472\\SQLEXPRESS;databaseName=AdventureWorks2019";
-        String username = "BTN3472\\bartlomiej.ciborowsk";
+        String url = "jdbc:sqlserver://;databaseName=AdventureWorks2019";//dodać adres serwera
+        String username = "";
         String password = "";
         try {
             Connection connection = DriverManager.getConnection(url, username, password);

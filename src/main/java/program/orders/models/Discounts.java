@@ -1,4 +1,4 @@
-package program.domain;
+package program.orders.models;
 
 public class Discounts {
 

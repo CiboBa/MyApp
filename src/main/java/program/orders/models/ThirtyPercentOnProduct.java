@@ -16,11 +16,11 @@ public class ThirtyPercentOnProduct implements Discount {
     }
 
     @Override
-    public double calculateDiscount(List<Product> productsList) {
+    public double calculateDiscount(List<Item> itemList) {
         double discount = 0;
-        for (Product p : productsList) {
-            if (p.getProductName().equals(productName)) {
-                discount = p.getProductPrice() * p.getProductQuantity() * 0.3;
+        for (Item i : itemList) {
+            if (i.product.getProductName().equals(productName)) {
+                discount = i.product.getProductPrice() * i.getQuantity() * 0.3;
             }
         }
         return discount;

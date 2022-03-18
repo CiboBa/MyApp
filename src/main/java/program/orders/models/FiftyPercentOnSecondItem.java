@@ -16,15 +16,16 @@ public class FiftyPercentOnSecondItem implements Discount {
     }
 
     @Override
-    public double calculateDiscount(List<Product> productsList) {
-        int count;
+    public double calculateDiscount(List<Item> itemList) {
+        int quantity;
         double discount = 0;
-        for (Product p : productsList) {
-            if (p.getProductName().equals(productName)) {
-                count = p.getProductQuantity();
-                if (count >= 2) {
-                    discount = p.getProductPrice() * 0.5;
-                }
+        for (Item i : itemList) {
+            if (i.product.getProductName().equals(productName)) {
+                quantity = i.getQuantity();
+                if (quantity % 2 >= 0) {
+                    discount = i.product.getProductPrice() * 0.5 * (0.5 * quantity);
+                } else
+                    discount = i.product.getProductPrice() * 0.5 + (0.5 * (quantity - 1));
             }
         }
         return discount;
@@ -32,7 +33,7 @@ public class FiftyPercentOnSecondItem implements Discount {
 
     @Override
     public void viewDiscount() {
-        System.out.println("50% on second item");
+        System.out.println("50% on second item: " + productName);
     }
 
     @Override

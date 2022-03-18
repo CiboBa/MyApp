@@ -1,23 +1,24 @@
 package program.orders;
 
+import program.orders.models.Discount;
 import program.orders.models.Item;
 import program.orders.models.Order;
+import program.products.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManagerImpl implements OrderManager {
 
-    public static final List<program.products.models.Product> mockList = List.of(
-            new program.products.models.Product("Banana", 1, 10.00, "FRUIT"),
-            new program.products.models.Product("Milk", 2, 12.50, "DIARY"),
-            new program.products.models.Product("Crisps", 5, 4.69, "ALIMENTARY")
+    public static final List<Product> mockList = List.of(
+            new Product("Banana", 1, 10.00, "FRUIT"),
+            new Product("Milk", 2, 12.50, "DIARY"),
+            new Product("Crisps", 5, 4.69, "ALIMENTARY")
     );
 
     public List<Item> items = new ArrayList<>();
 
     public OrderManagerImpl() {
-//        new Order(1001, UsersManagerImpl.user1.getUsername(), mockList);
     }
 
     @Override
@@ -37,16 +38,22 @@ public class OrderManagerImpl implements OrderManager {
     @Override
     public void viewOrder() {
         double orderPriceSum = 0;
-        for (program.products.models.Product p : mockList) {
-            double productPriceSum = p.getProductPrice() * p.getProductQuantity();
+        for (Item i : items) {
+            double productPriceSum = i.product.getProductPrice() * i.getQuantity();
             orderPriceSum += productPriceSum;
-            System.out.print(("\n" + (mockList.indexOf(p) + 1)) + ". " + p);
-            System.out.printf(" Value: %.2f", productPriceSum);
+            System.out.print(("\n" + (items.indexOf(i) + 1)) + ". " + i);
         }
-        System.out.println("\nTOTAL: " + orderPriceSum);
+        double discount = 0;
+        for (int i = 0; i < DiscountManager.getInstance().discountList.size(); i++) {
+            discount += DiscountManager.getInstance().discountList.get(i).calculateDiscount(items);
+        }
+        System.out.printf("\nDiscounted: %.2f", discount);
+        System.out.printf("\nTOTAL: %.2f", orderPriceSum - discount);
+        System.out.println("\n\n\n");
+        System.out.println();
     }
 
-    public Order createNew(Item item, String username) {
+    public Order createNew(program.orders.models.Item item, String username) {
         items.add(item);
         Order newOrder = new Order();
         newOrder.setId();
@@ -56,7 +63,7 @@ public class OrderManagerImpl implements OrderManager {
         return newOrder;
     }
 
-    public void viewAll(String username){
+    public void viewAll(String username) {
 
     }
 }

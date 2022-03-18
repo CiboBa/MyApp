@@ -26,8 +26,7 @@ public class Order {
     }
 
     public void setId() {
-        this.id = 1;
-        id++;
+        this.id = id + 1;
     }
 
     public String getUserName() {
@@ -82,17 +81,8 @@ public class Order {
     @Override
     public String toString() {
         String str1 = String.format("Order: %2d ", id);
-        String str2 = String.format("Qty:  %-10s", orderStatus);
+        String str2 = String.format("Status:  %-10s", orderStatus);
         String str3 = String.format("Total: %8.2f ", getOrderValue());
-//        double orderPriceSum = 0;
-//        for (Item i: orderItems) {
-//            double productPriceSum = orderItems.getProductPrice() * p.getProductQuantity();
-//            orderPriceSum += productPriceSum;
-//            System.out.print(("\n" + (mockList.indexOf(p) + 1)) + ". " + p);
-//            System.out.printf(" Value: %.2f", productPriceSum);
-//        }
-//        System.out.println("\nTOTAL: " + orderPriceSum);
-
         return str1 + str2 + str3;
 
     }

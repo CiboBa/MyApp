@@ -4,6 +4,7 @@ import program.orders.*;
 import program.orders.models.*;
 import program.products.ProductManager;
 import program.products.ProductManagerImpl;
+import program.products.models.Product;
 import program.users.UsersManager;
 import program.users.UsersManagerImpl;
 import program.users.models.StandardUser;
@@ -15,6 +16,8 @@ import java.util.Scanner;
 
 public class TextView {
 
+    private static DiscountManager DISCOUNT_MANAGER;
+
     private final int END = 0;
 
     private final Scanner SCANNER = new Scanner(System.in);
@@ -25,11 +28,11 @@ public class TextView {
 
     private final OrderManager ORDER_MANAGER = new OrderManagerImpl();
 
-    private final DiscountManager DISCOUNT_MANAGER = new DiscountManager();
-
     private static String usernameLogged;
 
     public void init() {
+
+        DISCOUNT_MANAGER = DiscountManager.getInstance();
 
         int option = 9;
         System.out.println("Welcome to the program.App. What would you like to do?");
@@ -156,6 +159,7 @@ public class TextView {
             for (Item item : viewedOrder.getOrderItems()) {
                 System.out.println(++id + " " + item);
             }
+
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such order!");
             afterLoginStandard();
@@ -235,7 +239,7 @@ public class TextView {
                 System.out.println("Remove discount");
                 removeDiscount();
             case 3:
-                System.out.println("View discount");
+                System.out.println("View discounts:");
                 viewDiscount();
             case 0:
                 afterLogin(usernameLogged);
@@ -254,8 +258,10 @@ public class TextView {
         System.out.println("Choose discount to remove:");
         int discountId = Integer.parseInt(SCANNER.nextLine());
 
-        Discount discount = DISCOUNT_MANAGER.selectDiscount(discountId);
+        Discount discount = DISCOUNT_MANAGER.selectDiscount(discountId - 1);
         DISCOUNT_MANAGER.deleteDiscount(discount);
+
+        manageDiscounts();
     }
 
     private void addDiscount() {
@@ -269,11 +275,17 @@ public class TextView {
 
         switch (option) {
             case 1:
-                DISCOUNT_MANAGER.addDiscount(new FiftyPercentOnSecondItem());
+                Discount fiftyPercentOnSecondItem = new FiftyPercentOnSecondItem();
+                DISCOUNT_MANAGER.addDiscount(fiftyPercentOnSecondItem);
+                manageDiscounts();
             case 2:
-                DISCOUNT_MANAGER.addDiscount(new TenEurForEveryHundredSpent());
+                Discount tenEurForEveryHundredSpent = new TenEurForEveryHundredSpent();
+                DISCOUNT_MANAGER.addDiscount(tenEurForEveryHundredSpent);
+                manageDiscounts();
             case 3:
-                DISCOUNT_MANAGER.addDiscount(new ThirtyPercentOnProduct());
+                Discount thirtyPercentOnProduct = new ThirtyPercentOnProduct();
+                DISCOUNT_MANAGER.addDiscount(thirtyPercentOnProduct);
+                manageDiscounts();
             case 0:
                 manageDiscounts();
             default:
@@ -356,7 +368,8 @@ public class TextView {
         StandardUser user = (StandardUser) USER_MANAGER.findUser(username);
 
         try {
-            System.out.println(user.orders.get(orderId).getOrderItems());
+            ORDER_MANAGER.viewOrder();
+//            System.out.println(user.orders.get(orderId).getOrderItems());
             editOrder(user, orderId);
         } catch (NumberFormatException e) {
             System.out.println("No such number");
@@ -444,9 +457,6 @@ public class TextView {
         System.out.println("3. Search product by Category");
         System.out.println("4. Edit product");
         System.out.println("5. Delete by ID");
-//        System.out.println("6. Add to CART by product NAME");
-//        System.out.println("7. User's cart");
-//        System.out.println("8. Buy now by NAME");
         System.out.println("0. Back");
 
         int option = Integer.parseInt(SCANNER.nextLine());
@@ -462,22 +472,6 @@ public class TextView {
                 selectProduct();
             case 5:
                 deleteById();
-//            case 6:
-//                try {
-//                    System.out.println("Type product name to add");
-//                    addToCartByName();
-//                } catch (NullPointerException e) {
-//                    System.out.println("No such product");
-//                }
-//            case 7:
-//                viewCart();
-//            case 8:
-//                try {
-//                    System.out.println("Type product name to buy");
-//                    buyNow();
-//                } catch (NullPointerException e) {
-//                    System.out.println("No such product");
-//                }
             case 0:
                 afterLogin(usernameLogged);
             default:
@@ -485,7 +479,7 @@ public class TextView {
         }
     }
 
-    private void buyNow(program.products.models.Product product) {
+    private void buyNow(Product product) {
         System.out.println("Type quantity you'd like to order: ");
         int qty = Integer.parseInt(SCANNER.nextLine());
 
@@ -565,7 +559,7 @@ public class TextView {
 
     private void selectProductSt() {
         System.out.println("\nType product ID to select or press ENTER to go back");
-        program.products.models.Product product = null;
+        Product product;
 
         try {
             int productId = Integer.parseInt(SCANNER.nextLine());
@@ -577,7 +571,7 @@ public class TextView {
 
     }
 
-    private void addToCartOrBuyNow(program.products.models.Product product) {
+    private void addToCartOrBuyNow(Product product) {
         System.out.println("\n1. Add to cart");
         System.out.println("2. Buy now");
         System.out.println("0. Back");
@@ -595,7 +589,7 @@ public class TextView {
         afterLoginStandard();
     }
 
-    private void addToCartByID(program.products.models.Product product) {
+    private void addToCartByID(Product product) {
         System.out.println("Type quantity you'd like to order: ");
         int qty = Integer.parseInt(SCANNER.nextLine());
 
@@ -611,7 +605,7 @@ public class TextView {
         String productName = SCANNER.nextLine();
 
         while (!productName.isEmpty()) {
-            program.products.models.Product product = PRODUCT_MANAGER.selectProduct(productName);
+            Product product = PRODUCT_MANAGER.selectProduct(productName);
 
             editOrDeleteProduct(product);
         }
@@ -620,7 +614,7 @@ public class TextView {
     }
 
 
-    private void editOrDeleteProduct(program.products.models.Product product) {
+    private void editOrDeleteProduct(Product product) {
         System.out.println("1. Edit product");
         System.out.println("2. Delete product");
         System.out.println("0. Back");
@@ -641,7 +635,7 @@ public class TextView {
         }
     }
 
-    private void editProduct(program.products.models.Product product) {
+    private void editProduct(Product product) {
         System.out.print("Set NEW NAME: ");
         String newName = SCANNER.nextLine();
         System.out.print("Set NEW QUANTITY: ");
@@ -679,7 +673,7 @@ public class TextView {
         System.out.print("Set CATEGORY: ");
         String category = SCANNER.nextLine();
 
-        program.products.models.Product product = new program.products.models.Product(productName, quantity, price, category);
+        Product product = new Product(productName, quantity, price, category);
 
         if (PRODUCT_MANAGER.isPresent(product)) {
             System.out.println("Product already exists!!!");

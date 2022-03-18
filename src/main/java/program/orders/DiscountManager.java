@@ -1,20 +1,17 @@
 package program.orders;
 
 import program.orders.models.Discount;
-import program.orders.models.FiftyPercentOnSecondItem;
-import program.orders.models.TenEurForEveryHundredSpent;
 
 import java.util.ArrayList;
 
 public class DiscountManager {
 
-    private static DiscountManager INSTANCE;
+    private static DiscountManager instance;
 
     public ArrayList<Discount> discountList;
 
     public DiscountManager() {
         discountList = new ArrayList<>();
-        discountList.add(new TenEurForEveryHundredSpent());
     }
 
     public void addDiscount(Discount discount) {
@@ -22,14 +19,10 @@ public class DiscountManager {
     }
 
     public void viewDiscountList() {
+        if (discountList.isEmpty()) System.out.println("No added discounts" + "\n");
         for (Discount discount : discountList) {
             discount.viewDiscount();
-            System.out.println("");
         }
-        if (discountList.size() == 0)
-            System.out.println("No added discounts" + "\n");
-        else
-            System.out.println("");
     }
 
     public Discount selectDiscount(int discountId) {
@@ -41,9 +34,9 @@ public class DiscountManager {
     }
 
     public static DiscountManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DiscountManager();
+        if (instance == null) {
+            instance = new DiscountManager();
         }
-        return INSTANCE;
+        return instance;
     }
 }

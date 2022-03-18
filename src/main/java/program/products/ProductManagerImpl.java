@@ -8,19 +8,19 @@ import java.util.stream.Collectors;
 
 public class ProductManagerImpl implements ProductManager {
 
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public ProductManagerImpl() {
-        products.add(new program.products.models.Product("Banana", 1, 1.00, "FRUIT"));
-        products.add(new program.products.models.Product("Apple", 5, 12.00, "FRUIT"));
-        products.add(new program.products.models.Product("Pear", 3, 5.00, "FRUIT"));
-        products.add(new program.products.models.Product("Carrot", 6, 54.00, "VEGETABLE"));
-        products.add(new program.products.models.Product("Vodka", 10, 23.00, "DRINK"));
-        products.add(new program.products.models.Product("Juice", 34, 67.00, "DRINK"));
-        products.add(new program.products.models.Product("Cucumber", 6, 2.00, "VEGETABLE"));
-        products.add(new program.products.models.Product("Water", 67, 56.60, "DRINK"));
-        products.add(new program.products.models.Product("Tomato", 32, 134.00, "VEGETABLE"));
-        products.add(new program.products.models.Product("Peach", 2, 1.00, "FRUIT"));
+        products.add(new Product("Banana", 1, 1.00, "FRUIT"));
+        products.add(new Product("Apple", 5, 12.00, "FRUIT"));
+        products.add(new Product("Pear", 3, 5.00, "FRUIT"));
+        products.add(new Product("Carrot", 6, 54.00, "VEGETABLE"));
+        products.add(new Product("Vodka", 10, 23.00, "DRINK"));
+        products.add(new Product("Juice", 34, 67.00, "DRINK"));
+        products.add(new Product("Cucumber", 6, 2.00, "VEGETABLE"));
+        products.add(new Product("Water", 67, 56.60, "DRINK"));
+        products.add(new Product("Tomato", 32, 134.00, "VEGETABLE"));
+        products.add(new Product("Peach", 2, 1.00, "FRUIT"));
     }
 
     @Override

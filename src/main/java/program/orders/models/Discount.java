@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Discount {
 
-    double calculateDiscount(List<Product> productsList);
+    double calculateDiscount(List<Item> itemList);
 
     void viewDiscount();
 }

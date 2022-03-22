@@ -1,13 +1,16 @@
 package program.users;
 
-import program.users.models.UserRole;
 import program.users.models.AdminUser;
 import program.users.models.StandardUser;
 import program.users.models.User;
+import program.users.models.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static program.ui.InitialView.SCANNER;
+import static program.ui.InitialView.USERS_MANAGER;
 
 public class UsersManagerImpl implements UsersManager {
 
@@ -17,11 +20,22 @@ public class UsersManagerImpl implements UsersManager {
 
     public static final User user1 = new StandardUser("ja", "123");
 
-    public static final String url = "jdbc:sqlserver:";
-
     public UsersManagerImpl() {
         users.add(admin);
         users.add(user1);
+    }
+
+    @Override
+    public User createUser(String username, String password) {
+        User user = new StandardUser(username, password);
+
+        if (USERS_MANAGER.isPresent(user)) {
+            System.out.println("User already exists!!!");
+        } else {
+            USERS_MANAGER.addUser(user);
+        }
+        System.out.println("\nUser added successfully: \nUsername: " + user.getUsername() + "\nPassword: " + user.getPassword());
+        return user;
     }
 
     @Override

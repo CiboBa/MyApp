@@ -200,12 +200,7 @@ public class TextView {
 
             switch (option) {
                 case 1:
-                    if (user.getRole().equals(UserRole.ADMIN)) {
-                        manageUsers(username);
-                    } else {
-                        System.out.println("You are not authorized!!!");
-                    }
-                    break;
+                    manageUsers(username);
                 case 2:
                     manageDiscounts();
                 case 3:

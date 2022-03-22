@@ -4,6 +4,8 @@ import program.users.models.User;
 
 public interface UsersManager {
 
+    User createUser(String username, String password);
+
     void addUser(User newUser);
 
     void updateUser(String user, String newUsername, String newPassword);

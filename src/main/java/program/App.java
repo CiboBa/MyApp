@@ -2,6 +2,7 @@ package program;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import program.ui.InitialView;
 import program.users.models.StandardUser;
 import program.users.models.User;
 
@@ -20,37 +21,40 @@ public class App {
 
     public static void main(String[] args) {
 
-        TextView textView = new TextView();
-        textView.init();
+        InitialView initialView = new InitialView();
+        initialView.init();
 
-        String sql_select = "Select * From users";
+//        TextView textView = new TextView();
+//        textView.init();
 
-        try(Connection conn = DBConnection.createNewDBConnection()){
-
-            statement = conn.createStatement();
-            resultSet = statement.executeQuery(sql_select);
-
-            List<User> users = new ArrayList<>();
-
-            while (resultSet.next()) {
-
-                User standardUser = new StandardUser();
-
-                standardUser.setUsername(resultSet.getString("Stefan"));
-                standardUser.setPassword(resultSet.getString("222"));
-
-                users.add(standardUser);
-            }
-
-            ObjectMapper mapper = new ObjectMapper();
-            String JSONOutput = mapper.writeValueAsString(users);
-            System.out.println(JSONOutput);
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+//        String sql_select = "Select * From users";
+//
+//        try (Connection conn = DBConnection.createNewDBConnection()) {
+//
+//            statement = conn.createStatement();
+//            resultSet = statement.executeQuery(sql_select);
+//
+//            List<User> users = new ArrayList<>();
+//
+//            while (resultSet.next()) {
+//
+//                StandardUser standardUser = new StandardUser();
+//
+//                standardUser.setUsername(resultSet.getString("username"));
+//                standardUser.setPassword(resultSet.getString("password"));
+//
+//                users.add(standardUser);
+//            }
+//
+//            ObjectMapper mapper = new ObjectMapper();
+//            String JSONOutput = mapper.writeValueAsString(users);
+//            System.out.println("this is json: " + JSONOutput);
+//
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
     }
 }

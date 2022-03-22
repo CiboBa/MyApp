@@ -17,7 +17,8 @@ public class TenEurForEveryHundredSpent implements Discount {
         if (orderValue % 100 == 0) {
             return discount * 10;
         } else {
-            return Math.rint(discount) * 10;
+            discount = (int) (orderValue / 100);
+            return discount * 10;
         }
     }
 

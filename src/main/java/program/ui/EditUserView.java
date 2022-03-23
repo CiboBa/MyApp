@@ -17,5 +17,9 @@ public class EditUserView implements View {
         String newPassword = SCANNER.nextLine();
 
         USERS_MANAGER.updateUser(searchedUsername, newUsername, newPassword);
+        System.out.println("User updated: " + newUsername);
+
+        View manageUsersView = new ManageUsersView();
+        manageUsersView.init();
     }
 }

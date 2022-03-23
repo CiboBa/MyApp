@@ -1,5 +1,6 @@
 package program.orders.models;
 
+import program.products.ProductManagerImpl;
 import program.products.models.Product;
 
 import java.util.List;
@@ -13,6 +14,13 @@ public class FiftyPercentOnSecondItem implements Discount {
         System.out.println("Choose product to discount:");
         Scanner scanner = new Scanner(System.in);
         productName = scanner.nextLine();
+        if (productName.isEmpty() || productName.isBlank()) {
+            System.out.println("You must choose discounted product! Choose between:");
+            for (Product p:ProductManagerImpl.products){
+                System.out.println(p.getProductName());
+            }
+            productName = scanner.nextLine();
+        }
     }
 
     @Override

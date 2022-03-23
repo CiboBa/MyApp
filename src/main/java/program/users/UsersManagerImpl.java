@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static program.ui.InitialView.SCANNER;
-import static program.ui.InitialView.USERS_MANAGER;
+//import static program.ui.InitialView.USERS_MANAGER;
 
 public class UsersManagerImpl implements UsersManager {
 
@@ -23,19 +22,6 @@ public class UsersManagerImpl implements UsersManager {
     public UsersManagerImpl() {
         users.add(admin);
         users.add(user1);
-    }
-
-    @Override
-    public User createUser(String username, String password) {
-        User user = new StandardUser(username, password);
-
-        if (USERS_MANAGER.isPresent(user)) {
-            System.out.println("User already exists!!!");
-        } else {
-            USERS_MANAGER.addUser(user);
-        }
-        System.out.println("\nUser added successfully: \nUsername: " + user.getUsername() + "\nPassword: " + user.getPassword());
-        return user;
     }
 
     @Override
@@ -57,7 +43,7 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public User findUser(String username) {
         return users.stream()
-                .filter(u -> u.getUsername().equals(username))
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("User not found - " + username));
     }
@@ -83,6 +69,6 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public boolean isPresent(User user) {
         return users.stream()
-                .anyMatch(u -> u.getUsername().equals(user.getUsername()));
+                .anyMatch(u -> u.getUsername().equalsIgnoreCase(user.getUsername()));
     }
 }

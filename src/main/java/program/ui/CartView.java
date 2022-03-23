@@ -15,12 +15,12 @@ public class CartView implements View {
         System.out.println("Your cart:");
         StandardUser user = (StandardUser) USERS_MANAGER.findUser(usernameLogged);
         int id = 0;
-        for (Item i : user.cart.cartItems
-        ) {
+        for (Item i : user.cart.cartItems) {
             System.out.println(++id + ". " + i);
         }
         System.out.println("--------------------------------------------");
-        System.out.println("\n1. Add another by ID");
+        System.out.println("\n1. Add product by ID");
+        System.out.println("2. Checkout cart");
         System.out.println("0. Back");
         int option = Integer.parseInt(SCANNER.nextLine());
 
@@ -28,24 +28,12 @@ public class CartView implements View {
             case 1:
                 View selectProductStView = new SelectProductStView();
                 selectProductStView.init();
+            case 2:
+                System.out.println("CHECKOUT!");
+                //zaimplementować !!!
             case 0:
                 View loginStandardView = new LoginStandardView();
                 loginStandardView.init();
         }
-
-//        System.out.println("1. Checkout");
-//        System.out.println("0. Back");
-//
-//        int option = Integer.parseInt(SCANNER.nextLine());
-//
-//        switch (option) {
-//            case 1:
-//                checkoutCart();
-//                break;
-//            case 0:
-//                afterLoginStandard();
-//            default:
-//                System.out.println("It is NOT a VALID COMMAND");
-//        }
     }
 }

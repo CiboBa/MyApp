@@ -26,6 +26,7 @@ public class ManageDiscountsView implements View {
                 removeDiscountView.init();
             case 3:
                 DISCOUNT_MANAGER.viewDiscountList();
+                init();
             case 0:
                 View loginAdminView = new LoginAdminView();
                 loginAdminView.init();

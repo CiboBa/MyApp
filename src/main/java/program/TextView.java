@@ -14,6 +14,7 @@ import program.users.models.UserRole;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+@Deprecated
 public class TextView {
 
     private static DiscountManager DISCOUNT_MANAGER;

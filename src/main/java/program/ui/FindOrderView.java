@@ -15,8 +15,10 @@ public class FindOrderView implements View {
         StandardUser user = (StandardUser) USERS_MANAGER.findUser(searchedUsername);
         if (user.orders.size() <= 0) {
             System.out.println("This user has no orders yet");
+            View userPreview = new UserPreview();
+            userPreview.init();
         } else if (user.orders.size() == 1) {
-            System.out.println("This user has got only one order. Type '1' for preview");
+            System.out.println("This user has got only one order. Choose '1' for preview");
         } else {
             System.out.println("Type order number to select: ");
             orderId = Integer.parseInt(SCANNER.nextLine()) - 1;

@@ -43,7 +43,7 @@ public class OrderManagerImpl implements OrderManager {
         Order newOrder = new Order();
         newOrder.setId();
         newOrder.setUserName(username);
-        newOrder.setProductList(items);
+        newOrder.setOrderItems(items);
         newOrder.setOrderStatusPending();
         return newOrder;
     }

@@ -1,6 +1,5 @@
 package program.ui;
 
-import program.orders.DiscountManager;
 import program.orders.models.Discount;
 import program.ui.models.View;
 
@@ -11,15 +10,21 @@ public class RemoveDiscountView implements View {
 
     @Override
     public void init() {
-        DISCOUNT_MANAGER.viewDiscountList();
+        if (!DISCOUNT_MANAGER.discountList.isEmpty()) {
+            DISCOUNT_MANAGER.viewDiscountList();
 
-        System.out.println("Choose discount to delete from list:");
-        int discountId = Integer.parseInt(SCANNER.nextLine());
+            System.out.println("Choose discount to delete from list:");
+            int discountId = Integer.parseInt(SCANNER.nextLine());
 
-        Discount discount = DISCOUNT_MANAGER.selectDiscount(discountId - 1);
-        DISCOUNT_MANAGER.deleteDiscount(discount);
+            Discount discount = DISCOUNT_MANAGER.selectDiscount(discountId - 1);
+            DISCOUNT_MANAGER.deleteDiscount(discount);
 
-        View manageDiscountsView = new ManageDiscountsView();
-        manageDiscountsView.init();
+            View manageDiscountsView = new ManageDiscountsView();
+            manageDiscountsView.init();
+        } else {
+            System.out.println("No added discounts");
+            View manageDiscountsView = new ManageDiscountsView();
+            manageDiscountsView.init();
+        }
     }
 }

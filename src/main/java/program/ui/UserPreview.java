@@ -34,9 +34,8 @@ public class UserPreview implements View {
                 }
                 break;
             case 2:
-                View editOrderView = new EditUserView();
-                editOrderView.init();
-                System.out.println("User updated: " + searchedUsername);
+                View editUserView = new EditUserView();
+                editUserView.init();
             case 3:
                 USERS_MANAGER.deleteUser(searchedUsername);
                 System.out.println("User deleted successfully");

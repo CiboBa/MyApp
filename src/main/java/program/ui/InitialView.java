@@ -1,7 +1,10 @@
 package program.ui;
 
+import program.orders.DiscountManager;
 import program.orders.OrderManager;
 import program.orders.OrderManagerImpl;
+import program.products.ProductManager;
+import program.products.ProductManagerImpl;
 import program.ui.models.View;
 import program.users.UsersManager;
 import program.users.UsersManagerImpl;
@@ -17,10 +20,14 @@ public class InitialView implements View {
 
     public static final OrderManager ORDER_MANAGER = new OrderManagerImpl();
 
+    public static final ProductManager PRODUCT_MANAGER = new ProductManagerImpl();
+
+    public static final DiscountManager DISCOUNT_MANAGER = DiscountManager.getInstance();
+
     public void init() {
 
         int option = 9;
-        System.out.println("Welcome to the program.App. What would you like to do?");
+        System.out.println("Welcome to the App. What would you like to do?");
 
         while (true) {
             System.out.println("1. Login");

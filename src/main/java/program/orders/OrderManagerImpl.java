@@ -1,32 +1,16 @@
 package program.orders;
 
-import program.orders.models.Discount;
 import program.orders.models.Item;
 import program.orders.models.Order;
-import program.products.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManagerImpl implements OrderManager {
 
-    public static final List<Product> mockList = List.of(
-            new Product("Banana", 1, 10.00, "FRUIT"),
-            new Product("Milk", 2, 12.50, "DIARY"),
-            new Product("Crisps", 5, 4.69, "ALIMENTARY")
-    );
-
     public List<Item> items = new ArrayList<>();
 
     public OrderManagerImpl() {
-    }
-
-    @Override
-    public Order createOrder() {
-//        Order order = new Order();
-//        order.setId();
-//        System.out.println("New order created");
-        return null;
     }
 
     @Override
@@ -53,6 +37,7 @@ public class OrderManagerImpl implements OrderManager {
         System.out.println();
     }
 
+    @Override
     public Order createNew(program.orders.models.Item item, String username) {
         items.add(item);
         Order newOrder = new Order();
@@ -63,7 +48,8 @@ public class OrderManagerImpl implements OrderManager {
         return newOrder;
     }
 
-    public void viewAll(String username) {
-
+    @Override
+    public boolean isEmpty() {
+        return items.isEmpty();
     }
 }

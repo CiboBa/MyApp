@@ -1,9 +1,10 @@
 package program.ui;
 
 import program.ui.models.View;
+import program.users.models.UserRole;
 
-import static program.ui.InitialView.PRODUCT_MANAGER;
-import static program.ui.InitialView.SCANNER;
+import static program.ui.InitialView.*;
+import static program.ui.LoginView.usernameLogged;
 
 public class SearchProductByCategoryView implements View {
 
@@ -15,7 +16,12 @@ public class SearchProductByCategoryView implements View {
         System.out.printf("%3s %-8s %3s %5s %-10s\n", "No.", "Name:", "Qty:", "Price:", "Category:");
         PRODUCT_MANAGER.findProductByCategory(category);
 
-        View selectProductView = new SelectProductView();
-        selectProductView.init();
+        if (USERS_MANAGER.findUser(usernameLogged).getRole().equals(UserRole.ADMIN)){
+            View selectProductView = new SelectProductView();
+            selectProductView.init();
+        }else {
+            View selectProductStView = new SelectProductStView();
+            selectProductStView.init();
+        }
     }
 }

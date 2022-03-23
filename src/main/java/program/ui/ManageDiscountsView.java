@@ -1,11 +1,9 @@
 package program.ui;
 
-import com.thoughtworks.qdox.model.expression.Add;
 import program.ui.models.View;
 
 import static program.ui.InitialView.DISCOUNT_MANAGER;
 import static program.ui.InitialView.SCANNER;
-import static program.ui.LoginView.usernameLogged;
 
 public class ManageDiscountsView implements View {
 

@@ -12,10 +12,13 @@ public class UserOrderHistory implements View {
     @Override
     public void init() {
         StandardUser user = (StandardUser) USERS_MANAGER.findUser(usernameLogged);
-        if (!ORDER_MANAGER.isEmpty()) {
-            for (Order order : user.orders) {
-                System.out.println(order);
-            }
+        if (user.orders.isEmpty()) {
+            System.out.println("You have no orders yet");
+            View loginStandardView = new LoginStandardView();
+            loginStandardView.init();
+        } else {
+            System.out.println("Your orders:");
+            showOrders(user);
             System.out.println("1. View order");
             System.out.println("0. Back");
             int option = Integer.parseInt(SCANNER.nextLine());
@@ -28,8 +31,14 @@ public class UserOrderHistory implements View {
                     View loginStandardView = new LoginStandardView();
                     loginStandardView.init();
             }
-        } else System.out.println("You have no orders yet");
-        View loginStandardView = new LoginStandardView();
-        loginStandardView.init();
+        }
+    }
+
+    private void showOrders(StandardUser user) {
+        System.out.println("============================");
+        for (Order o : user.orders) {
+            System.out.println(o.toString());
+            System.out.println("-----------------------------");
+        }
     }
 }

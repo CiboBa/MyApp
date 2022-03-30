@@ -29,8 +29,8 @@ public class LoginStandardView implements View {
                 View cartView = new CartView();
                 cartView.init();
             case 0:
-                init();
-                break;
+                View initialView = new InitialView();
+                initialView.init();
         }
     }
 }

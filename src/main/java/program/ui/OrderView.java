@@ -13,18 +13,22 @@ public class OrderView implements View {
 
     @Override
     public void init() {
-        System.out.println("\nEnter order ID");
-        int orderId = Integer.parseInt(SCANNER.nextLine());
+
+        System.out.println("Your orders:");
         StandardUser user = (StandardUser) USERS_MANAGER.findUser(usernameLogged);
+        showOrders(user);
+
+        System.out.println("\nEnter order ID:");
+        int orderId = Integer.parseInt(SCANNER.nextLine());
         Order viewedOrder = null;
 
         try {
             viewedOrder = user.orders.get(orderId - 1);
             int id = 0;
             System.out.println("\n" + viewedOrder);
-            for (Item item : viewedOrder.getOrderItems()) {
-                System.out.println(++id + " " + item);
-            }
+            listProducts(viewedOrder, id);
+            viewedOrder.showOrderSum();
+
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No such order!");
             View loginStandardView = new LoginStandardView();
@@ -47,10 +51,24 @@ public class OrderView implements View {
         }
     }
 
+    private void listProducts(Order viewedOrder, int id) {
+        System.out.println("\nProduct List:");
+        for (Item item : viewedOrder.getOrderItems()) {
+            System.out.println(++id + " " + item);
+        }
+    }
+
+    private void showOrders(StandardUser user) {
+        System.out.println("============================");
+        for (Order o : user.orders) {
+            System.out.println(o.toString());
+            System.out.println("-----------------------------");
+        }
+    }
+
     private void cancelOrderById(Order viewedOrder) {
         viewedOrder.setOrderStatusCancelled();
         System.out.println("Order cancelled");
     }
-
 
 }

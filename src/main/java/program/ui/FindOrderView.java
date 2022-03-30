@@ -1,5 +1,6 @@
 package program.ui;
 
+import program.orders.models.Order;
 import program.ui.models.View;
 import program.users.models.StandardUser;
 
@@ -25,7 +26,9 @@ public class FindOrderView implements View {
             View editOrderStatusView = new EditOrderStatusView();
 
             try {
-                ORDER_MANAGER.viewOrder();
+                for (Order o : user.orders) {
+                    System.out.println(o.toString());
+                }
                 editOrderStatusView.init();
             } catch (NumberFormatException e) {
                 System.out.println("No such number");

@@ -6,7 +6,8 @@ import program.products.models.Product;
 import program.ui.models.View;
 import program.users.models.StandardUser;
 
-import static program.ui.InitialView.*;
+import static program.ui.InitialView.SCANNER;
+import static program.ui.InitialView.USERS_MANAGER;
 import static program.ui.LoginView.usernameLogged;
 import static program.ui.SelectProductStView.selectedProductSt;
 
@@ -46,12 +47,20 @@ public class AddToCartOrBuy implements View {
         int qty = Integer.parseInt(SCANNER.nextLine());
 
         StandardUser user = (StandardUser) USERS_MANAGER.findUser(usernameLogged);
-        Item item = new Item(product, qty);
-        Order order = ORDER_MANAGER.createNew(item, user.getUsername());
+        Order order = getOrder(product, qty);
 
         user.orders.add(order);
 
         View loginStandardView = new LoginStandardView();
         loginStandardView.init();
+    }
+
+    private Order getOrder(Product product, int qty) {
+        Order order = new Order();
+        order.setId();
+        order.setUserName(usernameLogged);
+        order.orderItems.add(new Item(product, qty));
+        order.setOrderStatusPending();
+        return order;
     }
 }

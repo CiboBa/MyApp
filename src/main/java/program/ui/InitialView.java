@@ -1,8 +1,6 @@
 package program.ui;
 
 import program.orders.DiscountManager;
-import program.orders.OrderManager;
-import program.orders.OrderManagerImpl;
 import program.products.ProductManager;
 import program.products.ProductManagerImpl;
 import program.ui.models.View;
@@ -18,15 +16,13 @@ public class InitialView implements View {
 
     public static final UsersManager USERS_MANAGER = new UsersManagerImpl();
 
-    public static final OrderManager ORDER_MANAGER = new OrderManagerImpl();
-
     public static final ProductManager PRODUCT_MANAGER = new ProductManagerImpl();
 
     public static final DiscountManager DISCOUNT_MANAGER = DiscountManager.getInstance();
 
     public void init() {
 
-        int option = 9;
+        int option;
         System.out.println("Welcome to the App. What would you like to do?");
 
         while (true) {
@@ -42,7 +38,6 @@ public class InitialView implements View {
                         loginView.init();
                     } catch (NoSuchElementException ex) {
                         System.out.println(ex.getMessage());
-                        option = 9;
                     }
                     break;
                 case 0:

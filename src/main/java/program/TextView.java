@@ -1,6 +1,6 @@
 package program;
 
-import program.orders.*;
+import program.orders.DiscountManager;
 import program.orders.models.*;
 import program.products.ProductManager;
 import program.products.ProductManagerImpl;
@@ -9,7 +9,6 @@ import program.users.UsersManager;
 import program.users.UsersManagerImpl;
 import program.users.models.StandardUser;
 import program.users.models.User;
-import program.users.models.UserRole;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -26,8 +25,6 @@ public class TextView {
     private final UsersManager USER_MANAGER = new UsersManagerImpl();
 
     private final ProductManager PRODUCT_MANAGER = new ProductManagerImpl();
-
-    private final OrderManager ORDER_MANAGER = new OrderManagerImpl();
 
     private static String usernameLogged;
 
@@ -364,7 +361,7 @@ public class TextView {
         StandardUser user = (StandardUser) USER_MANAGER.findUser(username);
 
         try {
-            ORDER_MANAGER.viewOrder();
+//            ORDER_MANAGER.viewOrder();
 //            System.out.println(user.orders.get(orderId).getOrderItems());
             editOrder(user, orderId);
         } catch (NumberFormatException e) {
@@ -481,9 +478,9 @@ public class TextView {
 
         StandardUser user = (StandardUser) USER_MANAGER.findUser(usernameLogged);
         Item item = new Item(product, qty);
-        Order order = ORDER_MANAGER.createNew(item, user.getUsername());
+//        Order order = ORDER_MANAGER.createNew(item, user.getUsername());
 
-        user.orders.add(order);
+//        user.orders.add(order);
 
         afterLoginStandard();
 

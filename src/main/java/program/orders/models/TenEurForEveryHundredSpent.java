@@ -6,18 +6,17 @@ public class TenEurForEveryHundredSpent implements Discount {
 
     @Override
     public double calculateDiscount(List<Item> itemList) {
-        //nie działa!!!
         double orderValue = 0;
         for (Item i : itemList) {
             orderValue += i.product.getProductPrice() * i.getQuantity();
         }
-        double discount = 0;
-        if (orderValue % 100 == 0) {
-            return discount * 10;
+        double discount;
+        if (orderValue < 100) {
+            discount = 0;
         } else {
-            discount = (int) (orderValue / 100);
-            return discount * 10;
+            discount = (orderValue - orderValue % 100) / 100 * 10;
         }
+        return discount;
     }
 
 

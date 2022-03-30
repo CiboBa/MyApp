@@ -1,10 +1,14 @@
 package program.orders.models;
 
+import program.orders.DiscountManager;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order {
 
+    private static int count = 1;
     public int id;
     public String userName;
     public List<Item> orderItems = new ArrayList<>();
@@ -13,12 +17,11 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, String userName, List<Item> orderItems) {
-        this.id = id;
+    public Order(String userName, List<Item> orderItems) {
+        setId();
         this.userName = userName;
         this.orderItems = new ArrayList<>(orderItems);
         this.orderStatus = OrderStatus.PENDING;
-
     }
 
     public int getId() {
@@ -26,7 +29,8 @@ public class Order {
     }
 
     public void setId() {
-        this.id = id + 1;
+        this.id = count;
+        count++;
     }
 
     public String getUserName() {
@@ -78,11 +82,21 @@ public class Order {
         return orderValue;
     }
 
+    public void showOrderSum() {
+        double orderValue = getOrderValue();
+        double discount = 0;
+        for (Discount d : DiscountManager.getInstance().discountList) {
+            discount += d.calculateDiscount(orderItems);
+        }
+        System.out.printf("\nDiscounted: %.2f", discount);
+        System.out.printf("\nTOTAL: %.2f", orderValue - discount);
+    }
+
     @Override
     public String toString() {
-        String str1 = String.format("Order: %2d ", id);
-        String str2 = String.format("Status:  %-10s", orderStatus);
-        String str3 = String.format("Total: %8.2f ", getOrderValue());
+        String str1 = String.format("Order: %2d ", getId());
+        String str2 = String.format("\nStatus:  %-10s", getOrderStatus());
+        String str3 = String.format("\nTotal: %8.2f ", getOrderValue());
         return str1 + str2 + str3;
 
     }

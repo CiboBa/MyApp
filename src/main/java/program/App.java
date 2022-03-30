@@ -1,17 +1,9 @@
 package program;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import program.ui.InitialView;
-import program.users.models.StandardUser;
-import program.users.models.User;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class App {
 

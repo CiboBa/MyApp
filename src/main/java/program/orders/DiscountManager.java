@@ -20,6 +20,7 @@ public class DiscountManager {
 
     public void viewDiscountList() {
         if (discountList.isEmpty()) System.out.println("No added discounts" + "\n");
+        else System.out.println("\nActive discounts:");
         for (Discount discount : discountList) {
             discount.viewDiscount();
         }

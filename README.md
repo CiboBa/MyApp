@@ -30,3 +30,4 @@ Konkretne klasy ze strategią zniżki:
 - 50% zniżki na drugi przedmiot z danej kategorii
 - 10 za każde wydane 100
 - 30% na przedmiot
+- podgląd zamówienia wyświetlany z zaaplikowanymi zniżkami

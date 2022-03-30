@@ -1,7 +1,5 @@
 package program.orders.models;
 
-import program.products.models.Product;
-
 import java.util.List;
 
 public class TenEurForEveryHundredSpent implements Discount {
@@ -17,9 +15,11 @@ public class TenEurForEveryHundredSpent implements Discount {
         if (orderValue % 100 == 0) {
             return discount * 10;
         } else {
-            return Math.rint(discount) * 10;
+            discount = (int) (orderValue / 100);
+            return discount * 10;
         }
     }
+
 
     @Override
     public void viewDiscount() {

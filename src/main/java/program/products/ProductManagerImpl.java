@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class ProductManagerImpl implements ProductManager {
 
-    private final List<Product> products = new ArrayList<>();
+    public static final List<Product> products = new ArrayList<>();
 
     public ProductManagerImpl() {
         products.add(new Product("Banana", 1, 1.00, "FRUIT"));

@@ -1,13 +1,15 @@
 package program.users;
 
-import program.users.models.UserRole;
 import program.users.models.AdminUser;
 import program.users.models.StandardUser;
 import program.users.models.User;
+import program.users.models.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+//import static program.ui.InitialView.USERS_MANAGER;
 
 public class UsersManagerImpl implements UsersManager {
 
@@ -16,8 +18,6 @@ public class UsersManagerImpl implements UsersManager {
     public static final User admin = new AdminUser("admin", "1111");
 
     public static final User user1 = new StandardUser("ja", "123");
-
-    public static final String url = "jdbc:sqlserver:";
 
     public UsersManagerImpl() {
         users.add(admin);
@@ -43,7 +43,7 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public User findUser(String username) {
         return users.stream()
-                .filter(u -> u.getUsername().equals(username))
+                .filter(u -> u.getUsername().equalsIgnoreCase(username))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("User not found - " + username));
     }
@@ -69,6 +69,6 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public boolean isPresent(User user) {
         return users.stream()
-                .anyMatch(u -> u.getUsername().equals(user.getUsername()));
+                .anyMatch(u -> u.getUsername().equalsIgnoreCase(user.getUsername()));
     }
 }

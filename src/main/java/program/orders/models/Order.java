@@ -17,7 +17,7 @@ public class Order {
         this.id = id;
         this.userName = userName;
         this.orderItems = new ArrayList<>(orderItems);
-        this.setOrderStatusPending();
+        this.orderStatus = OrderStatus.PENDING;
 
     }
 
@@ -41,7 +41,7 @@ public class Order {
         return orderItems;
     }
 
-    public void setProductList(List<Item> listToCopy) {
+    public void setOrderItems(List<Item> listToCopy) {
         this.orderItems.addAll(listToCopy);
     }
 

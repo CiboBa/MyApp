@@ -1,7 +1,5 @@
 package program.orders.models;
 
-import program.products.models.Product;
-
 import java.util.List;
 import java.util.Scanner;
 

@@ -2,6 +2,7 @@ package program.products;
 
 import program.products.models.Product;
 
+@Deprecated
 public interface ProductManager {
 
     void addProduct(Product newProduct);

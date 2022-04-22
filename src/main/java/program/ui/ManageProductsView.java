@@ -25,12 +25,14 @@ public class ManageProductsView implements View {
             case 2:
                 View searchProductByNameView = new SearchProductByNameView();
                 searchProductByNameView.init();
+                break;
             case 3:
                 View searchProductByCategoryView = new SearchProductByCategoryView();
                 searchProductByCategoryView.init();
+                break;
             case 4:
-                View selectProductView = new SelectProductView();
-                selectProductView.init();
+                View editProduct = new EditProductView();
+                editProduct.init();
             case 5:
                 View deleteByIdView = new DeleteByIdView();
                 deleteByIdView.init();

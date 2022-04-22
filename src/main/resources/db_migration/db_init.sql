@@ -2,34 +2,38 @@ create table users
 (
     user_id  int primary key auto_increment not null,
     username   varchar(15) not null,
-    password    varchar(15) not null,
-    role         varchar(10) not null,
-    active       boolean
+    user_password    varchar(15) not null,
+    user_role         varchar(10) not null
 );
 
 create table products
 (
-	product_id int primary key auto_increment not null,
-	product_name varchar(20) not null,
+	product varchar(20) not null primary key,
     quantity int not null,
     price double not null,
-    category varchar (15)  not null,
-    active boolean
+    category varchar (15)  not null
     );
 
 create table items
 (
-	username varchar(20) not null,
-    product_name varchar(20) not null,
-    quantity int not null
+	item_id int primary key auto_increment,
+	product varchar(20) not null, foreign key (product) references products (product),
+    quantity int not null,
+    order_id int, foreign key (order_id) references orders (order_id)
     );
+
+create table cart
+(
+	user_id int not null, foreign key (user_id) references users (user_id),
+	item_id int, foreign key (item_id) references items (item_id)
+	);
     
 create table orders
 (
 	order_id int primary key auto_increment,
-	username varchar(20),
-    order_items varchar(20) not null,
-    status varchar (10) not null
+	user_id int not null, foreign key (user_id) references users (user_id),
+    -- item_id int, foreign key (item_id) references items (item_id),
+    order_status varchar (10) not null
     );
     
 create table discounts
@@ -39,3 +43,9 @@ create table discounts
     product varchar(20),
     active boolean
     );
+    
+create role 'ADMIN', 'STANDARD_USER';
+
+ALTER TABLE orders ;
+
+DROP TABLE orders;

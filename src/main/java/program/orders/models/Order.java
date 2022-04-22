@@ -1,44 +1,49 @@
 package program.orders.models;
 
+import com.thoughtworks.qdox.model.expression.Or;
 import program.orders.DiscountManager;
+import program.orders.OrderDAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Order {
 
     private static int count = 1;
     public int id;
-    public String userName;
+    public int userId;
+    //    public String userName;
     public List<Item> orderItems = new ArrayList<>();
-    public OrderStatus orderStatus;
+    public String orderStatus;
+//    public OrderStatus orderStatus;
 
     public Order() {
     }
 
-    public Order(String userName, List<Item> orderItems) {
-        setId();
-        this.userName = userName;
+    public Order(int id, int userId, List<Item> orderItems, String status) {
+//        setId();
+        this.id = id;
+        this.userId = userId;
+//        this.userName = userName;
         this.orderItems = new ArrayList<>(orderItems);
-        this.orderStatus = OrderStatus.PENDING;
+        this.orderStatus = status;
     }
+
 
     public int getId() {
         return id;
     }
 
-    public void setId() {
-        this.id = count;
-        count++;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<Item> getOrderItems() {
@@ -49,37 +54,17 @@ public class Order {
         this.orderItems.addAll(listToCopy);
     }
 
-    public OrderStatus getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatusPending() {
-        this.orderStatus = OrderStatus.PENDING;
-    }
-
-    public void setOrderStatusInProgress() {
-        this.orderStatus = OrderStatus.IN_PROGRESS;
-    }
-
-    public void setOrderStatusReady() {
-        this.orderStatus = OrderStatus.READY;
-    }
-
-    public void setOrderStatusShipped() {
-        this.orderStatus = OrderStatus.SHIPPED;
-    }
-
-    public void setOrderStatusCancelled() {
-        this.orderStatus = OrderStatus.CANCELLED;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public double getOrderValue() {
-        double orderValue = 0;
-        for (Item item : orderItems) {
-            double productValue = item.product.getProductPrice() * item.getQuantity();
-            orderValue += productValue;
-        }
-        return orderValue;
+        OrderDAO orderDAO = new OrderDAO();
+        return orderDAO.getTotalPrice(getId());
     }
 
     public void showOrderSum() {
@@ -94,9 +79,9 @@ public class Order {
 
     @Override
     public String toString() {
-        String str1 = String.format("Order: %2d ", getId());
-        String str2 = String.format("\nStatus:  %-10s", getOrderStatus());
-        String str3 = String.format("\nTotal: %8.2f ", getOrderValue());
+        String str1 = String.format("Order No: %2d ", getId());
+        String str2 = String.format("| Status:  %-10s", getOrderStatus());
+        String str3 = String.format("| Total: %8.2f ", getOrderValue());
         return str1 + str2 + str3;
 
     }

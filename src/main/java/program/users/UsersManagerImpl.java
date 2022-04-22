@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-//import static program.ui.InitialView.USERS_MANAGER;
-
+@Deprecated
 public class UsersManagerImpl implements UsersManager {
 
     public static List<User> users = new ArrayList<>();

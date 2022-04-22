@@ -1,6 +1,5 @@
 package program.users.models;
 
-import program.orders.models.Cart;
 import program.orders.models.Order;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.List;
 
 public class StandardUser extends User {
 
-    public Cart cart = new Cart();
+//    public Cart cart = new Cart();
 
     public List<Order> orders = new ArrayList<>();
 

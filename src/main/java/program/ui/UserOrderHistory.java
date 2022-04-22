@@ -11,28 +11,30 @@ public class UserOrderHistory implements View {
 
     @Override
     public void init() {
-        StandardUser user = (StandardUser) USERS_MANAGER.findUser(usernameLogged);
-        if (user.orders.isEmpty()) {
+
+        if (!ORDER_DAO.hasOrders(usernameLogged)) {
             System.out.println("You have no orders yet");
             View loginStandardView = new LoginStandardView();
             loginStandardView.init();
         } else {
-            System.out.println("Your orders:");
-            showOrders(user);
-            System.out.println("1. View order");
-            System.out.println("0. Back");
-            int option = Integer.parseInt(SCANNER.nextLine());
+            ORDER_DAO.listOrders(usernameLogged);
+        }
 
-            switch (option) {
-                case 1:
-                    View orderView = new OrderView();
-                    orderView.init();
-                case 0:
-                    View loginStandardView = new LoginStandardView();
-                    loginStandardView.init();
-            }
+        System.out.println("\n\n");
+        System.out.println("1. View order");
+        System.out.println("0. Back");
+        int option = Integer.parseInt(SCANNER.nextLine());
+
+        switch (option) {
+            case 1:
+                View orderView = new OrderView();
+                orderView.init();
+            case 0:
+                View loginStandardView = new LoginStandardView();
+                loginStandardView.init();
         }
     }
+
 
     private void showOrders(StandardUser user) {
         System.out.println("============================");

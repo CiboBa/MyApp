@@ -1,13 +1,9 @@
 package program.ui;
 
-import program.orders.models.Order;
 import program.ui.models.View;
-import program.users.models.StandardUser;
 
-import static program.ui.FindOrderView.orderId;
+import static program.ui.InitialView.ORDER_DAO;
 import static program.ui.InitialView.SCANNER;
-import static program.ui.InitialView.USERS_MANAGER;
-import static program.ui.SearchUserView.searchedUsername;
 
 
 public class EditOrderStatusView implements View {
@@ -15,26 +11,42 @@ public class EditOrderStatusView implements View {
     @Override
     public void init() {
 
+        System.out.println("Select order:");
+        int orderId = Integer.parseInt(SCANNER.nextLine());
+
+        ORDER_DAO.showOrder(orderId);
+
         System.out.println("\n\n1. Change status to: PENDING");
         System.out.println("2. Change status to: IN_PROGRESS");
         System.out.println("3. Change status to: READY");
-        System.out.println("4. Delete order");
+        System.out.println("4. Change status to: SHIPPED");
+        System.out.println("5. Cancel order");
         System.out.println("0. Back");
 
-        StandardUser user = (StandardUser) USERS_MANAGER.findUser(searchedUsername);
-        Order order = user.orders.get(orderId);
-
         int changeStatus = Integer.parseInt(SCANNER.nextLine());
+        View userPreview = new UserPreview();
 
         switch (changeStatus) {
             case 1:
-                order.setOrderStatusPending();
+                ORDER_DAO.changeStatusPending(orderId);
+                System.out.println("Order status has been changed!");
+                userPreview.init();
             case 2:
-                order.setOrderStatusInProgress();
+                ORDER_DAO.changeStatusInProgress(orderId);
+                System.out.println("Order status has been changed!");
+                userPreview.init();
             case 3:
-                order.setOrderStatusReady();
+                ORDER_DAO.changeStatusReady(orderId);
+                System.out.println("Order status has been changed!");
+                userPreview.init();
             case 4:
-                user.orders.remove(orderId);
+                ORDER_DAO.changeStatusShipped(orderId);
+                System.out.println("Order status has been changed!");
+                userPreview.init();
+            case 5:
+                ORDER_DAO.cancelOrderById(orderId);
+                System.out.println("Order cancelled!!");
+                userPreview.init();
             case 0:
                 break;
             default:

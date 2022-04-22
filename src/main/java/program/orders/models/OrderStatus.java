@@ -3,7 +3,7 @@ package program.orders.models;
 public enum OrderStatus {
 
     PENDING,
-    IN_PROGRESS,
+    IN_PROGR,
     READY,
     SHIPPED,
     CANCELLED

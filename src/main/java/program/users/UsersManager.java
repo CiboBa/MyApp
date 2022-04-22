@@ -2,6 +2,7 @@ package program.users;
 
 import program.users.models.User;
 
+@Deprecated
 public interface UsersManager {
 
     void addUser(User newUser);

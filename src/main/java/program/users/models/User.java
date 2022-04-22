@@ -12,7 +12,7 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = UserRole.STANDARD_USER;
+        this.role = UserRole.STANDARD;
     }
 
     public String getUsername() {

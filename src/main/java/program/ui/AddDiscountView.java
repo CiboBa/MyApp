@@ -9,6 +9,7 @@ import program.ui.models.View;
 import static program.ui.InitialView.DISCOUNT_MANAGER;
 import static program.ui.InitialView.SCANNER;
 
+//nie zaimplementowane
 public class AddDiscountView implements View {
 
     @Override

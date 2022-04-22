@@ -9,7 +9,7 @@ public class ManageUsersView implements View {
     @Override
     public void init() {
 
-        System.out.println("\nManage users:");
+        System.out.println("\n\nManage users:");
         System.out.println("1. Add user");
         System.out.println("2. Search user");
         System.out.println("0. Back");

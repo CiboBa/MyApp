@@ -4,19 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Deprecated
 public class DBConnection {
 
-    private static final String url = "jdbc:mysql://localhost:3306/app_database";
-    private static final String username = "root";
-    private static final String password = "0000";
+    private static final String URL = "jdbc:mysql://localhost:3306/app_database";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "0000";
     private static Connection connection;
 
     @SuppressWarnings("finally")
     public static Connection createNewDBConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Connection successful: " + url);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            System.out.println("Connection successful: " + URL);
 
         } catch (
                 ClassNotFoundException e) {

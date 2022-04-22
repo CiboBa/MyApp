@@ -4,8 +4,11 @@ import program.ui.models.View;
 import program.users.models.StandardUser;
 import program.users.models.User;
 
-import static program.ui.InitialView.SCANNER;
-import static program.ui.InitialView.USERS_MANAGER;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import static program.ui.InitialView.*;
 
 public class AddUserView implements View {
 
@@ -16,8 +19,7 @@ public class AddUserView implements View {
         System.out.print("Set PASSWORD: ");
         String password = SCANNER.nextLine();
 
-        User user = createUser(username, password);
-        USERS_MANAGER.addUser(user);
+        USERS_DAO.save(createUser(username, password));
 
         View manageUsersView = new ManageUsersView();
         manageUsersView.init();
@@ -26,10 +28,10 @@ public class AddUserView implements View {
     User createUser(String username, String password) {
         User user = new StandardUser(username, password);
 
-        if (USERS_MANAGER.isPresent(user)) {
+        if (USERS_DAO.authenticate(user)) {
             System.out.println("User already exists!!!");
         } else {
-            USERS_MANAGER.addUser(user);
+            USERS_DAO.save(user);
         }
         System.out.println("\nUser added successfully: \nUsername: " + user.getUsername() + "\nPassword: " + user.getPassword());
         return user;

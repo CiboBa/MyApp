@@ -1,11 +1,8 @@
 package program.ui;
 
-import program.orders.models.Order;
 import program.ui.models.View;
-import program.users.models.StandardUser;
 
-import static program.ui.InitialView.SCANNER;
-import static program.ui.InitialView.USERS_MANAGER;
+import static program.ui.InitialView.*;
 import static program.ui.SearchUserView.searchedUsername;
 
 public class UserPreview implements View {
@@ -13,9 +10,10 @@ public class UserPreview implements View {
     @Override
     public void init() {
 
-        System.out.println("\n1. View user orders");
-        System.out.println("2. Edit user");
-        System.out.println("3. Delete user");
+        System.out.println("\n\n1. View user orders");
+        System.out.println("2. Edit order status");
+        System.out.println("3. Edit user");
+        System.out.println("4. Delete user");
         System.out.println("0. Back\n");
 
         int option = Integer.parseInt(SCANNER.nextLine());
@@ -23,27 +21,34 @@ public class UserPreview implements View {
         switch (option) {
             case 1:
                 try {
-                    StandardUser user = (StandardUser) USERS_MANAGER.findUser(searchedUsername);
-                    for (Order order : user.orders) {
-                        System.out.println(order);
-                    }
-                    View findOrderView = new FindOrderView();
-                    findOrderView.init();
-                } catch (ClassCastException e) {
-                    System.out.println("Admin must not have orders");
+                    ORDER_DAO.listOrders(searchedUsername);
+                    init();
+                } catch (NullPointerException e) {
+                    System.out.println("This user has no orders yet!");
+                    break;
                 }
-                break;
             case 2:
+                View editOrderStatusView = new EditOrderStatusView();
+                editOrderStatusView.init();
+                break;
+            case 3:
                 View editUserView = new EditUserView();
                 editUserView.init();
-            case 3:
-                USERS_MANAGER.deleteUser(searchedUsername);
-                System.out.println("User deleted successfully");
+                break;
+            case 4:
+                if (USERS_DAO.hasOrders(searchedUsername)) {
+                    System.out.println("Cannot delete active user");
+                } else {
+                    USERS_DAO.delete(searchedUsername);
+                    System.out.println("User deleted successfully");
+                }
                 View manageUsersView = new ManageUsersView();
                 manageUsersView.init();
+                break;
             case 0:
                 View loginAdminView = new LoginAdminView();
                 loginAdminView.init();
+                break;
             default:
                 System.out.println("It is NOT a VALID COMMAND");
         }

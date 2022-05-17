@@ -1,6 +1,6 @@
 # MyApp
 
-Aplikacja konsolowa imitująca sklep (master) + JDBC zaimplementowany na branchu!
+Aplikacja konsolowa imitująca sklep (master) + JDBC zaimplementowany
 
 Wytyczne:
 1. Sterowanie poprzez wybór klawisza przypisanego do opcji
